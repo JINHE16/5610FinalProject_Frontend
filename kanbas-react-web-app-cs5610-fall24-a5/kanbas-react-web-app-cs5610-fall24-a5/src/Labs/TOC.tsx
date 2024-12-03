@@ -13,9 +13,6 @@ export default function TOC() {
     { id: "wd-a4", href: "#/Labs/Lab4", label: "Lab 4", pathMatch: "Lab4" },
     { id: "wd-a5", href: "#/Labs/Lab5", label: "Lab 5", pathMatch: "Lab5" },
     { id: "wd-k", href: "#/Kanbas", label: "Kanbas" },
-    { id: "wd-github-frontend", href: "https://github.com/JHE016/kanbas-react-web-app-cs5610-fall24/", label: "GitHub-frontend" },
-    { id: "wd-github-backend", href: "https://github.com/JHE016/kanbas-node-server-app", label: "GitHub-backend" },
-    { id: "wd-server-render", href: "https://kanbas-node-server-app-5a9o.onrender.com", label: "server-render" },
   ];
 
   return (
