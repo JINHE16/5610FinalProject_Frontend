@@ -19,13 +19,14 @@ export default function Dashboard(
     const { currentUser } = useSelector((state: any) => state.accountReducer);
     const [showAllCourses, setShowAllCourses] = useState(false);
     const isFaculty = currentUser.role === "FACULTY";
-    const isStudent = currentUser.role == "STUDENT";
+    const isStudent = currentUser.role === "STUDENT";
 
     const handleToggleEnrollments = () => {
         setShowAllCourses(!showAllCourses);
     };
 
     const visibleCourses = showAllCourses ? allCourses : courses;
+    // const visibleCourses = isFaculty ? allCourses : (showAllCourses ? allCourses : courses);
 
     return (
         <div id="wd-dashboard">
