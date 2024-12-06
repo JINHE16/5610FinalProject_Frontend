@@ -51,3 +51,11 @@ export const deleteQuiz = async (courseId: string, quizId: string) => {
   );
   return response.data;
 };
+
+// 定义：返回符合courseId和quizId的quiz
+export const fetchQuizDetails = async (courseId: string, quizId: string) => {
+    const response = await axios.get(
+        `${COURSES_API}/${courseId}/quizzes/${quizId}`
+    );
+    return response.data;
+}

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-type Quiz = {
+export type Quiz = {
   _id: string;
   title: string;
   available_from: string;
