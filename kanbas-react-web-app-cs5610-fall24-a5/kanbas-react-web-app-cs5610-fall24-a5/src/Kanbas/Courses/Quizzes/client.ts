@@ -1,4 +1,6 @@
 import axios from "axios";
+import quizDetails from "./QuizDetails";
+import {Quiz} from "./reducer";
 const REMOTE_SERVER = process.env.REACT_APP_REMOTE_SERVER;
 const COURSES_API = `${REMOTE_SERVER}/api/courses`;
 const QUIZZES_API = `${REMOTE_SERVER}/api/quizzes`;
@@ -59,3 +61,12 @@ export const fetchQuizDetails = async (courseId: string, quizId: string) => {
     );
     return response.data;
 }
+
+export const updateQuizDetails = async (courseId: string, quizId: string, quizDetails: Quiz) => {
+    const response = await axios.put(
+        `${COURSES_API}/${courseId}/quizzes/${quizId}`,
+        quizDetails
+    );
+    return response.data;
+}
+

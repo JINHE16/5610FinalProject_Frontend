@@ -17,6 +17,7 @@ import {
 } from "./reducer";
 import {Dropdown} from "react-bootstrap";
 import ProtectedRoute from "../../Account/ProtectedRoute";
+import QuizDetails from "./QuizDetails";
 
 export default function Quizzes() {
     const {cid} = useParams();
@@ -77,7 +78,9 @@ export default function Quizzes() {
         new Date() <= new Date(availableUntil);
 
     return (
+
         <div id="wd-quiz-list" className="container">
+            <QuizDetails/>
             {/* top section */}
             <div className="d-flex justify-content-between align-items-center mb-3">
                 <input

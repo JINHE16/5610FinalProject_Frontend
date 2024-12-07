@@ -39,12 +39,29 @@ const QuizDetails = () => {
     return (
         <div className="quiz-details-container">
             <h1>{quiz.title}</h1>
+            <p>Quiz Type: {quiz.quizType}</p>
             <p>Points: {quiz.points}</p>
+            <p>Assignment Group: {quiz.assignmentGroup}</p>
+            <p>Shuffle Answers: {quiz.shuffleAnswers}</p>
+            <p>Time Limit: {quiz.timeLimit}</p>
+            <p>Multiple Attempts: {quiz.multipleAttempts}</p>
+            {/*<p>View Responses: {quiz.viewResponses}</p>*/}
+            <p>How many attempts: {quiz.howManyAttempts}</p>
+            <p>Show Correct Answers: {quiz.showCorrectAnswers}</p>
+            <p>Access Code: {quiz.accessCode}</p>
+            <p>One Question At A Time: {quiz.oneQuestionAtATime}</p>
+            <p>Webcam Required: {quiz.webcamRequired}</p>
+            <p>Lock Questions After Answering: {quiz.lockQuestionsAfterAnswering}</p>
+            <p>Due Date: {quiz.due_date}</p>
             <p>Available From: {quiz.available_from}</p>
             <p>Available Until: {quiz.available_until}</p>
-            <p>Due Date: {quiz.due_date}</p>
-            <p>Questions: {quiz.questions || 0}</p>
-            <p>Published: {quiz.published ? 'Yes' : 'No'}</p>
+            <div className="quiz-dates">
+                <br/>
+                <p>Due Date: {quiz.due_date}</p>
+                <p>Available From: {quiz.available_from}</p>
+                <p>Available Until: {quiz.available_until}</p>
+                <br/>
+            </div>
         </div>
     );
 };

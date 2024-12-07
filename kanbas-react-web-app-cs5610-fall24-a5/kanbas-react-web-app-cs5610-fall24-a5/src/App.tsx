@@ -4,6 +4,7 @@ import Kanbas from './Kanbas';
 import {HashRouter, Navigate, Route, Routes} from "react-router-dom";
 import store from "./Kanbas/store";
 import {Provider} from "react-redux";
+import QuizDetailsEditor from "./Kanbas/Courses/Quizzes/QuizEditor";
 
 function App() {
     return (
@@ -14,6 +15,7 @@ function App() {
                         <Route path="/" element={<Navigate to="/Kanbas"/>}/>
                         <Route path="/Labs/*" element={<Labs/>}/>
                         <Route path="/Kanbas/*" element={<Kanbas/>}/>
+                        <Route path="/Kanbas/Courses/:cid/Quizzes/:quizId" element={<QuizDetailsEditor />} />
 
                     </Routes>
                 </div>

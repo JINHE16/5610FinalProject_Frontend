@@ -1,0 +1,37 @@
+.quiz-details-editor-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.tabs {
+    display: flex;
+    margin-bottom: 20px;
+}
+
+.tab-button {
+    flex: 1;
+    padding: 10px;
+    text-align: center;
+    border: none;
+    background-color: #f4f4f4;
+    cursor: pointer;
+}
+
+.tab-button.active {
+    font-weight: bold;
+    background-color: #e0e0e0;
+}
+
+.quiz-details-form .form-group {
+    margin-bottom: 15px;
+}
+
+.quiz-details-form .form-control {
+    width: 100%;
+    padding: 10px;
+}
+
+.form-buttons {
+    display: flex;
+    justify-content: space-between;
+}
