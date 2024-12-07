@@ -35,8 +35,11 @@ export default function Quizzes() {
         const quizzesData = await fetchMethod(courseId);
         dispatch(setQuizzes(quizzesData));
     };
+
+    // +Quiz按钮的创建逻辑
     const handleCreateQuiz = async () => {
         const newQuiz = createInitialQuiz();
+        // 跳转到course的id就不对，研究一下为什么
         const createdQuiz = await client.createQuiz(cid as string, newQuiz);
         dispatch(createQuiz(createdQuiz));
         navigate(`${createdQuiz._id}/editor`);
