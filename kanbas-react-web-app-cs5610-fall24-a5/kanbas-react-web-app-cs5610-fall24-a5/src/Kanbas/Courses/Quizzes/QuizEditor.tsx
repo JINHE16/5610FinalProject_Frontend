@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, {useState} from 'react';
+import {useNavigate, useParams} from 'react-router-dom';
 import * as client from './client'; // API 调用
-import { Quiz } from './reducer';
+import {Quiz} from './reducer';
 import './QuizDetailsEditor.css'; // 可添加样式
-import { Editor } from "@tinymce/tinymce-react";
-import {updateQuizDetails} from "./client";
+import {Editor} from "@tinymce/tinymce-react";
+
+
 
 const QuizDetailsEditor = () => {
     const navigate = useNavigate();
-    const { cid, quizId } = useParams();
+    const {cid, quizId} = useParams();
 
     const [quizDetails, setQuizDetails] = useState<Quiz>({
         title: '',
@@ -95,9 +96,12 @@ const QuizDetailsEditor = () => {
                     </div>
                     <div className="form-group">
                         <label>Description</label>
+
+                        {/* tinymce是一个富文本编辑器，需要在html中引入tinymce.min.js*/}
+
                         <Editor
-                            apiKey="your-tinymce-api-key"
-                            initialValue={quizDetails.description}
+                            apiKey='ract2ll529fz82m189u0cypxvp6cnirhoq4p82bt0o3lbe9t'
+                            value={quizDetails.description}
                             init={{
                                 height: 300,
                                 menubar: true,
@@ -210,7 +214,6 @@ const QuizDetailsEditor = () => {
                     </div>
 
 
-
                     {/*分配截止日期按键组*/}
                     <div className="date-settings-section">
                         <h4>Dates</h4>
@@ -264,7 +267,6 @@ const QuizDetailsEditor = () => {
                             </div>
                         </div>
                     </div>
-
 
 
                     {/*保存按键组*/}

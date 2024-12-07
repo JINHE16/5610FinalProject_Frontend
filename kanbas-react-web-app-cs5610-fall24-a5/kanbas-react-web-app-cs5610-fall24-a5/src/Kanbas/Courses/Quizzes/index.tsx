@@ -39,7 +39,7 @@ export default function Quizzes() {
         const newQuiz = createInitialQuiz();
         const createdQuiz = await client.createQuiz(cid as string, newQuiz);
         dispatch(createQuiz(createdQuiz));
-        navigate(`${createdQuiz._id}`);
+        navigate(`${createdQuiz._id}/editor`);
     };
     const handleTogglePublish = async (quizId: string, published: boolean) => {
         const updatedQuiz = await client.togglePublish(quizId, published);
@@ -125,7 +125,7 @@ export default function Quizzes() {
                                         <div className="flex-grow-1 mx-3">
                                             <a
                                                 className="wd-quiz-link fw-bold text-dark text-decoration-none"
-                                                href={`#/Kanbas/Courses/${cid}/Quizzes/${quiz._id}`}
+                                                href={`#/Kanbas/Courses/${cid}/Quizzes/${quiz._id}/details`}
                                             >
                                                 {quiz.title}
                                             </a>
