@@ -33,7 +33,8 @@ const QuizEditor = () => {
         due_date: "",
         available_from: "",
         available_until: "",
-        questions: [] as Question[]
+        questions: [] as Question[],
+        published: false
     });
 
     useEffect(() => {
@@ -278,6 +279,18 @@ const QuizEditor = () => {
                                     </label>
                                 </div>
 
+                                {/*/!*setPublishStatus*!/*/}
+                                {/*<div>*/}
+                                {/*    <label className="form-label">Publish Status</label>*/}
+                                {/*    <input*/}
+                                {/*        type="checkbox"*/}
+                                {/*        className="form-check-input"*/}
+                                {/*        id="published"*/}
+                                {/*        checked={quizData.published}*/}
+                                {/*        onChange={(e) => handleInputChange("published", e.target.checked)}*/}
+                                {/*    /><label className="form-label">published or not</label>*/}
+                                {/*</div>*/}
+
                                 {/*webcam require checkbox*/}
                                 <div className="form-check mb-2">
 
@@ -343,8 +356,32 @@ const QuizEditor = () => {
                                 <button type="button" className="btn btn-secondary" onClick={handleCancel}>
                                     Cancel
                                 </button>
-                                <button type="button" className="btn btn-danger" onClick={handleSave}>
+                                <button type="button" className="btn btn-primary" onClick={handleSave}>
                                     Save
+                                </button>
+
+                                {/*save and publish*/}
+                                <button type="button" className="btn btn-danger" onClick={async() =>  {
+                                    // Update the `published` attribute first
+                                    const updatedQuizData = {
+                                        ...quizData,
+                                        published: true, // Set published to true
+                                    };
+                                    handleInputChange("published", true);
+                                    setQuizData(updatedQuizData); // Update local state
+                                    // Call `handleSave` after updating
+                                    try {
+                                        // 直接将 updatedQuizData 传递给重写的handleSave，而不是依赖状态（因为handlesave在上文定义不接受参数）
+                                        if (qid) {
+                                            const savedQuiz = await client.updateQuiz(cid!, qid, updatedQuizData);
+                                            dispatch(updateQuiz(savedQuiz));
+                                            window.location.hash = `/Kanbas/Courses/${cid}/Quizzes`;
+                                        }
+                                    } catch (error) {
+                                        console.error("Error saving and publishing quiz:", error);
+                                    }
+                                }}>
+                                    Save and Publish
                                 </button>
                             </div>
                         </form>

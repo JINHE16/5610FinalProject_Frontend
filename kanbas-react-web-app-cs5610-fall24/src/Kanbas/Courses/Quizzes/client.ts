@@ -118,3 +118,19 @@ export const deleteQuestionFromQuiz = async (quizId: string, questionId: string)
     throw error; // Propagate the error to the calling function
   }
 };
+// 定义：返回符合courseId和quizId的quiz
+export const fetchQuizDetails = async (courseId: string, quizId: string) => {
+    const response = await axios.get(
+        `${COURSES_API}/${courseId}/quizzes/${quizId}`
+    );
+    return response.data;
+}
+
+export const updateQuizDetails = async (courseId: string, quizId: string, quizDetails: Quiz) => {
+    const response = await axios.put(
+        `${COURSES_API}/${courseId}/quizzes/${quizId}`,
+        quizDetails
+    );
+    return response.data;
+}
+
