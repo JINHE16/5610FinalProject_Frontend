@@ -2,35 +2,34 @@ import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import * as client from './client'; // 用于调用后端 API
 import { Quiz } from './types';
+import {setQuizzes} from "./reducer";
+import {useSelector} from "react-redux";
 
 const QuizDetails = () => {
     const { cid, quizId } = useParams(); // 从 URL 获取 cid 和 quizId 参数
-    const [quiz, setQuiz] = useState<Quiz>();
     const [loading, setLoading] = useState(true);
-
+    const quiz = useSelector((state: any) =>
+        state.quizReducer.quizzes.find((q: any) => q._id === quizId)
+    );
     // 加载测验详情
     useEffect(() => {
         // 若不存在param中的这两个参数返回错误
-        if (!cid || !quizId) {
+        if (!quizId) {
             console.error("Missing required parameters");
             return;
         }
         const fetchQuizDetails = async () => {
             try {
-                const quizData = await client.fetchQuizDetails(cid, quizId);
-                setQuiz(quizData);
+                const quizData = await client.getQuiz(quizId);
+                setQuizzes(quizData);
             } catch (error) {
                 console.error('Error fetching quiz details:', error);
-            } finally {
-                setLoading(false);
             }
         };
         fetchQuizDetails();
     }, [cid, quizId]);
 
-    // if (loading) {
-    //     return <div>Loading...</div>;
-    // }
+
 
     if (!quiz) {
         return <div>Quiz not found!</div>;

@@ -120,6 +120,7 @@ export default function Quizzes() {
 
                                         {/* bottom middle: content */}
                                         <div className="flex-grow-1 mx-3">
+                                            {/*点击quiz名称进行跳转*/}
                                             <a
                                                 className="wd-quiz-link fw-bold text-dark text-decoration-none"
                                                 // href={`#/Kanbas/Courses/${cid}/Quizzes/${quiz._id}`}
