@@ -6,7 +6,7 @@ import {FaBan} from "react-icons/fa";
 import GreenCheckmark from "../Modules/GreenCheckmark";
 import {useParams, useNavigate} from "react-router-dom";
 import {useSelector, useDispatch} from "react-redux";
-import {useEffect, useState} from "react";
+import { useEffect } from "react";
 import * as client from "./client";
 import {
     createQuiz,
@@ -14,21 +14,23 @@ import {
     deleteQuiz,
     setQuizzes,
     togglePublish,
+    setLatestScore,
 } from "./reducer";
 import {Dropdown} from "react-bootstrap";
 import ProtectedRoute from "../../Account/ProtectedRoute";
 
 export default function Quizzes() {
     const {cid} = useParams();
-    const [latestScore, setLatestScore] = useState<number | null>(null);
-    const {quizzes} = useSelector((state: any) => state.quizReducer);
+    const { quizzes, latestScores } = useSelector(
+        (state: any) => state.quizReducer
+    );
     const {currentUser} = useSelector((state: any) => state.accountReducer);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
     const loadQuizzesForCourse = async (courseId: string) => {
         const fetchMethod =
-            currentUser.role === "FACULTY"
+            currentUser.role === "FACULTY" || currentUser.role === "ADMIN"
                 ? client.fetchAllQuizzesForCourse
                 : client.fetchPublishedQuizzesForCourse;
         const quizzesData = await fetchMethod(courseId);
@@ -53,11 +55,23 @@ export default function Quizzes() {
         await client.deleteQuiz(courseId, quizId);
         dispatch(deleteQuiz(quizId));
     };
+    const fetchLatestScore = async (quizId: string) => {
+        const score = await client.fetchLatestScoreForStudent(
+          quizId,
+          currentUser._id
+        );
+        dispatch(setLatestScore({ quizId, score }));
+    };
     useEffect(() => {
         if (cid) {
             loadQuizzesForCourse(cid);
         }
     }, [cid]);
+    useEffect(() => {
+        quizzes.forEach((quiz: any) => {
+          fetchLatestScore(quiz._id);
+        });
+    }, [quizzes]);
 
     const formatDate = (isoDate: string) =>
         new Date(isoDate)
@@ -85,7 +99,7 @@ export default function Quizzes() {
                     className="form-control w-50 h-auto"
                     placeholder="Search for Quiz"
                 />
-                <ProtectedRoute isDataReady={true} requiredRole={"FACULTY"}>
+                <ProtectedRoute isDataReady={true} requiredRole={["FACULTY", "ADMIN"]}>
                     <div>
                         <button className="btn btn-danger me-2" onClick={handleCreateQuiz}>
                             <AiOutlinePlus/> Quiz
@@ -156,13 +170,13 @@ export default function Quizzes() {
                                                         isDataReady={true}
                                                         requiredRole={"STUDENT"}
                                                     >
-                                                        {latestScore === null || latestScore === undefined
-                                                            ? `- / ${quiz.points} pts`
-                                                            : `${latestScore} / ${quiz.points} pts`}
+                                                        {latestScores[quiz._id] != null
+                                                            ? `${latestScores[quiz._id]} / ${quiz.points} pts`
+                                                            : `- / ${quiz.points} pts`}
                                                     </ProtectedRoute>
                                                     <ProtectedRoute
                                                         isDataReady={true}
-                                                        requiredRole={"FACULTY"}
+                                                        requiredRole={["FACULTY", "ADMIN"]}
                                                     >
                                                         {quiz.points} pts
                                                     </ProtectedRoute>
@@ -171,7 +185,7 @@ export default function Quizzes() {
                                         </div>
 
                                         {/* bottom right: controls */}
-                                        <ProtectedRoute isDataReady={true} requiredRole={"FACULTY"}>
+                                        <ProtectedRoute isDataReady={true} requiredRole={["FACULTY", "ADMIN"]}>
                                             <div className="d-flex align-items-center">
                                                 <button
                                                     className="btn p-0"

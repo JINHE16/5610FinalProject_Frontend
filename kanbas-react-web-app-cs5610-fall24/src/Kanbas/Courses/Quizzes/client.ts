@@ -119,3 +119,12 @@ export const deleteQuestionFromQuiz = async (quizId: string, questionId: string)
   }
 };
 
+export const fetchLatestScoreForStudent = async (
+  quizId: string,
+  studentId: string
+) => {
+  const response = await axios.get(
+    `${QUIZZES_API}/${quizId}/students/${studentId}/score/latest`
+  );
+  return response.data.score;
+};

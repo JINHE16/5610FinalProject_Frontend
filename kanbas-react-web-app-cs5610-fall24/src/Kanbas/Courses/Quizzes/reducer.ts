@@ -9,10 +9,12 @@ export const createInitialQuiz = () => ({
   points: 0,
   questions: [],  // Initialize with empty array
   published: false,
+  scores: [],
 });
 
 const initialState = {
   quizzes: [] as Quiz[],
+  latestScores: {} as { [quizId: string]: number },
 };
 
 const quizSlice = createSlice({
@@ -66,6 +68,10 @@ const quizSlice = createSlice({
     deleteQuiz: (state, { payload }) => {
       state.quizzes = state.quizzes.filter((quiz) => quiz._id !== payload);
     },
+    setLatestScore: (state, { payload }) => {
+      const { quizId, score } = payload;
+      state.latestScores[quizId] = score;
+    },
   },
 });
 
@@ -78,6 +84,7 @@ export const {
   deleteQuestion,
   togglePublish,
   deleteQuiz,
+  setLatestScore,
 } = quizSlice.actions;
 
 export default quizSlice.reducer;
