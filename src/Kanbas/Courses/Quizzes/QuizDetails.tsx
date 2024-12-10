@@ -40,7 +40,7 @@ const QuizDetails = () => {
 
     return (<>
 
-    <ProtectedRoute isDataReady={true} requiredRole={"FACULTY"}>
+    <ProtectedRoute isDataReady={true} requiredRole={["FACULTY", "ADMIN"]}>
         <div className="quiz-details-container">
             <div style={{display: "flex", gap: "10px"}}>
                 {/* Preview Button */}

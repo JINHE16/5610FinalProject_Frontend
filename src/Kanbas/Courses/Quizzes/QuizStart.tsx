@@ -82,8 +82,11 @@ const QuizStart = () => {
         return acc;
       }, {});
 
-      const { score } = result;
-      dispatch(setLatestScore({ quizId: qid, score })); // 存储到reducer中
+      dispatch(setLatestScore({ 
+        quizId: qid,
+        score: result.score,
+        userId: currentUser._id  // 添加用户ID
+      }));
 
       setMessage(`Your score: ${result.score}`);
       setResults(resultsById);

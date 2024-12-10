@@ -191,7 +191,9 @@ const QuizPreview = () => {
           {currentQuestion && (
             <div className="question-container">
               <h4>
-                Question {currentQuestionIndex + 1}: {currentQuestion.title} ({currentQuestion.points} pts)
+                Question {currentQuestionIndex + 1}: {currentQuestion.title} 
+                {console.log('Current Question Data:', currentQuestion)}
+                <span className="text-muted">({currentQuestion.points} pts)</span>
               </h4>
 
               {currentQuestion.type === "TRUE_FALSE" && (
