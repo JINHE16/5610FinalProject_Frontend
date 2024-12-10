@@ -20,17 +20,19 @@ export default function Dashboard(
     const [showAllCourses, setShowAllCourses] = useState(false);
     const isFaculty = currentUser.role === "FACULTY";
     const isStudent = currentUser.role == "STUDENT";
+    const isAdmin = currentUser.role === "ADMIN";
 
     const handleToggleEnrollments = () => {
         setShowAllCourses(!showAllCourses);
     };
 
-    const visibleCourses = (showAllCourses ? allCourses : courses);
+    const visibleCourses = isAdmin ? allCourses :
+        (showAllCourses ? allCourses : courses);
 
     return (
         <div id="wd-dashboard">
             <h1 id="wd-dashboard-title">Dashboard</h1> <hr />
-            {(isFaculty) && (
+            {(isFaculty || isAdmin) && (
                 <>
                     <h5>New Course
                         <button
@@ -70,6 +72,13 @@ export default function Dashboard(
                 </div>
             )}
 
+            <h2 id="wd-dashboard-published">
+                {isAdmin ?
+                    "All Courses" :
+                    (showAllCourses ? "All Courses" : "Enrolled Courses")}
+                ({visibleCourses.length})
+            </h2>
+
             <div id="wd-dashboard-courses" className="row">
                 <div className="row row-cols-1 row-cols-md-5 g-4">
                     {visibleCourses.map((course) => {
@@ -98,7 +107,7 @@ export default function Dashboard(
                                                     {isEnrolled ? "Unenroll" : "Enroll"}
                                                 </button>
                                             )}
-                                            {(isFaculty) && (
+                                            {(isFaculty || isAdmin) && (
                                                 <>
                                                     <button onClick={(event) => {
                                                         event.preventDefault();

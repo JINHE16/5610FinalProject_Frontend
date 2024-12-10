@@ -43,4 +43,8 @@ export type Quiz = {
     oneQuestionAtTime: { type: Boolean, default: true },
     webcamRequired: { type: Boolean, default: false },
     lockQuestionsAfterAnswering: { type: Boolean, default: false },
+    lastAttempt?: {
+        score: number;
+        attemptDate: string;
+      };
 };

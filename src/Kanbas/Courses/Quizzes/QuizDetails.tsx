@@ -58,7 +58,7 @@ const QuizDetails = () => {
                     }}
                     onClick={() => navigate(`/Kanbas/Courses/${quiz.course}/Quizzes/${qid}/preview`)}
                 >
-                    Preview
+                    <span style={{marginRight: "6px"}}>🔍</span> Preview
                 </button>
 
 

@@ -9,7 +9,7 @@ import QuizEditor from "./Quizzes/Editor";
 import QuizDetails from "./Quizzes/QuizDetails";
 import Editor from "./Quizzes/Editor";
 import QuizPreview from "./Quizzes/QuizPreview";
-import QuizTaking from "./Quizzes/QuizTaking";
+import QuizStart from "./Quizzes/QuizStart";
 
 export default function Courses({ courses }: { courses: any[]; }) {
     const { cid } = useParams();
@@ -38,7 +38,7 @@ export default function Courses({ courses }: { courses: any[]; }) {
                         <Route path ="Quizzes/:qid" element={<QuizDetails />} />
                         <Route path ="Quizzes/:qid/editor" element={<Editor />} />
                         <Route path="Quizzes/:qid/preview" element={<QuizPreview />} />
-                        <Route path="Quizzes/:qid/start" element={<QuizTaking />} />
+                        <Route path="Quizzes/:qid/start" element={<QuizStart />} />
                         <Route path="Grades" element={<h2>Grades</h2>} />
                         <Route path="People" element={<h2>People</h2>} />
                     </Routes>
