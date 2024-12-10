@@ -57,10 +57,13 @@ const QuizStart = () => {
     }
 
     try {
-      const formattedAnswers = Object.keys(answers).map((questionId) => ({
-        questionId,
-        answer: answers[questionId],
-      }));
+      const formattedAnswers = Object.keys(answers).map((questionId) => {
+        const answer = answers[questionId];
+        return {
+          questionId,
+          answer: typeof answer === "string" ? answer.trim().toLowerCase() : answer,
+        };
+      });
 
       const response = await fetch(`http://localhost:4000/api/quizAttempts/${qid}/submit`, {
         method: "POST",
@@ -113,16 +116,25 @@ const QuizStart = () => {
             <strong>Score:</strong> {quizData.lastAttempt.score}
           </p>
           <ul style={{ listStyleType: "none", paddingLeft: "0" }}>
-            {quizData.questions.map((question: any, index: number) => (
-              <li key={question.id || question._id} style={{ marginBottom: "10px" }}>
-                <strong>Question {index + 1}:</strong> {question.title}
-                <br />
-                <strong>Your Answer:</strong>{" "}
-                {quizData.lastAttempt.answers[question.id || question._id]
-                  ? JSON.stringify(quizData.lastAttempt.answers[question.id || question._id])
-                  : "No Answer"}
-              </li>
-            ))}
+          {quizData.questions.map((question: any, index: number) => {
+  // 在 lastAttempt.answers 数组中查找对应问题的答案
+  const lastAnswer = quizData.lastAttempt.answers.find(
+    (ans: any) => ans.questionId === (question.id || question._id)
+  );
+
+  return (
+    <li key={question.id || question._id} style={{ marginBottom: "10px" }}>
+      <strong>Question {index + 1}:</strong> {question.title}
+      <br />
+      <strong>Your Answer:</strong>{" "}
+      {lastAnswer 
+        ? (typeof lastAnswer.answer === 'boolean' 
+          ? lastAnswer.answer.toString() 
+          : lastAnswer.answer)
+        : "No Answer"}
+    </li>
+  );
+})}
           </ul>
           <p>
             <strong>Date:</strong> {new Date(quizData.lastAttempt.attemptDate).toLocaleString()}

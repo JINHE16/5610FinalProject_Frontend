@@ -75,6 +75,7 @@ export const updateQuizQuestions = async (
 
 export const addQuestionToQuiz = async (quizId: string, questionData: Question) => {
   try {
+    console.log("Adding question to quiz:", quizId, "with data:", questionData);
     const response = await axiosWithCredentials.post(
       `${QUIZZES_API}/${quizId}/questions`,
       questionData
@@ -127,5 +128,6 @@ export const fetchLatestScoreForStudent = async (
   const response = await axios.get(
     `${QUIZZES_API}/${quizId}/students/${studentId}/score/latest`
   );
+  console.log("API Response for latest score:", response.data);
   return response.data.score;
 };

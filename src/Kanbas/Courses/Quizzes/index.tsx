@@ -56,11 +56,18 @@ export default function Quizzes() {
         dispatch(deleteQuiz(quizId));
     };
     const fetchLatestScore = async (quizId: string) => {
-        const score = await client.fetchLatestScoreForStudent(
-          quizId,
-          currentUser._id
-        );
-        dispatch(setLatestScore({ quizId, score }));
+        try {
+            const score = await client.fetchLatestScoreForStudent(
+                quizId,
+                currentUser._id
+            );
+            console.log(`Fetched score for quiz ${quizId}:`, score);
+            if (score !== null && score !== undefined) {
+                dispatch(setLatestScore({ quizId, score }));
+            }
+        } catch (error) {
+            console.error(`Error fetching score for quiz ${quizId}:`, error);
+        }
     };
     useEffect(() => {
         if (cid) {

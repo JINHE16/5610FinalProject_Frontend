@@ -22,6 +22,11 @@ export default function Dashboard(
     const isStudent = currentUser.role == "STUDENT";
     const isAdmin = currentUser.role === "ADMIN";
 
+    const initialstate ={
+        courses:[],// Ensure new users have an empty array
+        allCourses:[]// Populate all available courses
+    };
+    
     const handleToggleEnrollments = () => {
         setShowAllCourses(!showAllCourses);
     };

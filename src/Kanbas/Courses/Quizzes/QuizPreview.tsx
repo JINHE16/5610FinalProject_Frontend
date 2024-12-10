@@ -58,10 +58,13 @@ const QuizPreview = () => {
     }
 
     try {
-      const formattedAnswers = Object.keys(answers).map((questionId) => ({
-        questionId,
-        answer: answers[questionId],
-      }));
+      const formattedAnswers = Object.keys(answers).map((questionId) => {
+        const answer = answers[questionId];
+        return {
+          questionId,
+          answer: typeof answer === "string" ? answer.trim().toLowerCase() : answer,
+        };
+      });
 
       const response = await fetch(`http://localhost:4000/api/quizAttempts/${qid}/submit`, {
         method: "POST",
