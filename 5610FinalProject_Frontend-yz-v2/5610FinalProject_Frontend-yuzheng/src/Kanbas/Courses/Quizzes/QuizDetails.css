@@ -1,0 +1,38 @@
+.quiz-details-container {
+    max-width: 800px;
+    margin: 0 auto;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.quiz-details h1 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.quiz-details dl {
+    display: grid;
+    grid-template-columns: 150px 1fr;
+    gap: 10px;
+    font-size: 1em;
+}
+
+.quiz-details dt {
+    font-weight: bold;
+    text-align: right;
+    margin-right: 10px;
+    color: #333;
+}
+
+.quiz-details dd {
+    margin: 0;
+    color: #555;
+}
+
+.quiz-details dd:not(:last-child) {
+    margin-bottom: 10px;
+}
