@@ -75,6 +75,7 @@ export const updateQuizQuestions = async (
 
 export const addQuestionToQuiz = async (quizId: string, questionData: Question) => {
   try {
+    console.log("Adding question to quiz:", quizId, "with data:", questionData);
     const response = await axiosWithCredentials.post(
       `${QUIZZES_API}/${quizId}/questions`,
       questionData

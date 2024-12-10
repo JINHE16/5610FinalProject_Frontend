@@ -1,14 +1,14 @@
-import React, {useState, useEffect} from 'react';
-import {useParams} from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { useParams } from "react-router-dom";
 import QuestionEditor from './QuestionEditor';
-import {useDispatch, useSelector} from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import * as client from "./client";
-import {updateQuiz} from "./reducer";
-import {Question} from './types';
-import {Editor} from "@tinymce/tinymce-react";
+import { updateQuiz } from "./reducer";
+import { Question } from './types';
+import { Editor } from "@tinymce/tinymce-react";
 
 const QuizEditor = () => {
-    const {cid, qid} = useParams();
+    const { cid, qid } = useParams();
     const dispatch = useDispatch();
     const [activeTab, setActiveTab] = useState("details");
     const quiz = useSelector((state: any) =>
@@ -18,23 +18,22 @@ const QuizEditor = () => {
     const [quizData, setQuizData] = useState({
         title: "Unnamed Quiz",
         description: "",
-        quizType: "GRADED_QUIZ",
+        quizType: "Graded Quiz",  // Changed from GRADED_QUIZ
         points: 0,
-        assignmentGroup: "QUIZZES",
+        assignmentGroup: "Quizzes", // Changed from QUIZZES
         shuffleAnswers: true,
         timeLimit: 20,
         multipleAttempts: false,
         attempts: 1,
-        showCorrectAnswers: "Immediately",
+        showCorrectAnswers: "Immediately", // Changed from boolean to string
         accessCode: "",
         oneQuestionAtTime: true,
         webcamRequired: false,
         lockQuestionsAfterAnswering: false,
-        due_date: "",
-        available_from: "",
-        available_until: "",
-        questions: [] as Question[],
-        published: false
+        due_date: "",            // Changed from dueDate
+        available_from: "",      // Changed from availableFrom
+        available_until: "",     // Changed from availableUntil
+        questions: [] as Question[]
     });
 
     useEffect(() => {
@@ -164,10 +163,10 @@ const QuizEditor = () => {
                                     value={quizData.quizType}
                                     onChange={(e) => handleInputChange("quizType", e.target.value)}
                                 >
-                                    <option value="GRADED_QUIZ">Graded Quiz</option>
-                                    <option value="PRACTICE_QUIZ">Practice Quiz</option>
-                                    <option value="GRADED_SURVEY">Graded Survey</option>
-                                    <option value="UNGRADED_SURVEY">Ungraded Survey</option>
+                                    <option value="Graded Quiz">Graded Quiz</option>
+                                    <option value="Practice Quiz">Practice Quiz</option>
+                                    <option value="Graded Survey">Graded Survey</option>
+                                    <option value="Ungraded Survey">Ungraded Survey</option>
                                 </select>
                             </div>
 
@@ -179,10 +178,10 @@ const QuizEditor = () => {
                                     value={quizData.assignmentGroup}
                                     onChange={(e) => handleInputChange("assignmentGroup", e.target.value)}
                                 >
-                                    <option value="QUIZZES">Quizzes</option>
-                                    <option value="EXAMS">Exams</option>
-                                    <option value="ASSIGNMENTS">Assignments</option>
-                                    <option value="PROJECT">Project</option>
+                                    <option value="Quizzes">Quizzes</option>
+                                    <option value="Exams">Exams</option>
+                                    <option value="Assignments">Assignments</option>
+                                    <option value="Project">Project</option>
                                 </select>
                             </div>
 
@@ -206,7 +205,7 @@ const QuizEditor = () => {
                                     <input
                                         type="number"
                                         className="form-control"
-                                        style={{width: '100px'}}
+                                        style={{ width: '100px' }}
                                         value={quizData.timeLimit}
                                         onChange={(e) => handleInputChange("timeLimit", parseInt(e.target.value))}
                                         min={0}
@@ -258,7 +257,7 @@ const QuizEditor = () => {
                                         <input
                                             type="number"
                                             className="form-control"
-                                            style={{width: '100px'}}
+                                            style={{ width: '100px' }}
                                             value={quizData.attempts}
                                             onChange={(e) => handleInputChange("attempts", parseInt(e.target.value))}
                                             min={1}
@@ -325,7 +324,7 @@ const QuizEditor = () => {
                                     <input
                                         type="datetime-local"
                                         className="form-control"
-                                        value={(quizData.due_date)}
+                                        value={quizData.due_date}
                                         onChange={(e) => handleInputChange("due_date", e.target.value)}
                                     />
                                 </div>
@@ -361,7 +360,7 @@ const QuizEditor = () => {
                                 </button>
 
                                 {/*save and publish*/}
-                                <button type="button" className="btn btn-danger" onClick={async() =>  {
+                                <button type="button" className="btn btn-danger" onClick={async () => {
                                     // Update the `published` attribute first
                                     const updatedQuizData = {
                                         ...quizData,
